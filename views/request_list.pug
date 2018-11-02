@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  script(src="/socket.io/socket.io.js")
+  script(src="/scripts/socket.js")
+  h1= title
+  div.requests
+    each request in requests
+        pre= JSON.stringify(request, null, 4)
