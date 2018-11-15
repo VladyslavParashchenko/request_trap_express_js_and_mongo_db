@@ -1,0 +1,5 @@
+each val, index in request
+    .card-header.capitalize-first-letter
+        = index
+    .card-body
+        = JSON.stringify(val, null, 4)

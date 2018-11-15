@@ -5,10 +5,7 @@ block content
         .jumbotron
             h1.display-4 Request saved
             .card
-                each val, index in request
-                    h5.card-header= index
-                    .card-body
-                             p= JSON.stringify(val)
+                include request-partitial
                 h5.card-header Link
                 .card-body
                     a(href=path + '/requests', class='btn btn-primary') Go to request list

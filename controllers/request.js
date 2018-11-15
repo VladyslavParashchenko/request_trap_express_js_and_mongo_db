@@ -1,6 +1,6 @@
 const Request = require('../models/request');
 const serializer = require('../serializer/request_serializer');
-
+const pug = require('pug');
 module.exports = {
   create (req, res) {
     return Request
@@ -17,8 +17,8 @@ module.exports = {
           createdAt: Date.now()
         })
       .then((request) => {
-        res.render('request', { title: 'Request was saved', request: serializer.serializeObject(request),  path: req.path });
-        req.io.emit('newRequest', { 'request': serializer.serializeObject(request) });
+        res.render('request', { title: 'Request was saved', request: serializer.serializeObject(request), path: req.path });
+        req.io.emit('newRequest', { 'request': pug.renderFile('views/request-partitial.pug', { request: serializer.serializeObject(request) }) });
       }
       )
       .catch((error) => res.status(400).send(error));
