@@ -1,16 +1,17 @@
-"use strict"
-module.exports = (sequelize, DataTypes) => {
-    const Request = sequelize.define("Request", {
-        request_id: DataTypes.STRING,
-        cookies: DataTypes.TEXT,
-        headers: DataTypes.TEXT,
-        remote_ip: DataTypes.STRING,
-        schema: DataTypes.STRING,
-        method: DataTypes.STRING,
-        query: DataTypes.STRING
-    }, {})
-    Request.associate = function (models) {
-        // associations can be defined here
-    }
-    return Request
-}
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const RequestSchema = new Schema({
+  trap_id: String,
+  cookies: {},
+  headers: {},
+  remote_ip: String,
+  request_schema: String,
+  method: String,
+  createdAt: Date,
+  query_params: Object,
+  query_string: String
+});
+
+module.exports = mongoose.model('Request', RequestSchema);

@@ -3,7 +3,11 @@ extends layout
 block content
   script(src="/socket.io/socket.io.js")
   script(src="/scripts/socket.js")
-  h1= title
+  h1 Request list
   div.requests
     each request in requests
-        pre= JSON.stringify(request, null, 4)
+      .my-card-container
+        each val, index in request
+          h5.card-header= index
+          .card-body
+            p= JSON.stringify(val)

@@ -1,30 +1,34 @@
-const Request = require("../models").Request
-module.exports = {
-    create(req, res){
-        return Request
-            .create(
-                {
-                    cookies: JSON.stringify(req.cookies),
-                    headers: JSON.stringify(req.headers),
-                    schema: req.protocol,
-                    method: req.method,
-                    params: req.method == "GET" ? req.params : req.body,
-                    remote_ip: req.header("x-forwarded-for") || req.connection.remoteAddress,
-                    query: req.protocol + "://" + req.get("host") + req.originalUrl,
-                    request_id: req.params.request_id
-                })
-            .then((request) => {
-                res.render("request", {title: "Request was saved", request: JSON.stringify(request, null, 4)})
-                console.log(JSON.stringify(request))
-                req.io.emit("newRequest", {"request": JSON.stringify(request, null, 4)})
-            }
-            )
-            .catch((error) => res.status(400).send(error))
-    },
+const Request = require('../models/request');
+const serializer = require('../serializer/request_serializer');
 
-    index(req, res){
-        return Request
-            .findAll({where: {request_id: req.params.request_id }})
-            .then((request) => { res.render("request_list", {title: "Requests list",requests: request})})
-    }
-}
+module.exports = {
+  create (req, res) {
+    return Request
+      .create(
+        {
+          cookies: req.cookies,
+          headers: req.headers,
+          request_schema: req.protocol,
+          method: req.method,
+          query_params: req.method === 'GET' ? req.query : req.body,
+          remote_ip: req.header('x-forwarded-for') || req.connection.remoteAddress,
+          query_string: req.protocol + '://' + req.get('host') + req.originalUrl,
+          trap_id: req.params.trap_id,
+          createdAt: Date.now()
+        })
+      .then((request) => {
+        res.render('request', { title: 'Request was saved', request: serializer.serializeObject(request),  path: req.path });
+        req.io.emit('newRequest', { 'request': serializer.serializeObject(request) });
+      }
+      )
+      .catch((error) => res.status(400).send(error));
+  },
+
+  index (req, res) {
+    return Request
+      .find({ trap_id: req.params.trap_id })
+      .then((requests) => {
+        res.render('request_list', { requests: serializer.serializeCollection(requests) });
+      });
+  }
+};

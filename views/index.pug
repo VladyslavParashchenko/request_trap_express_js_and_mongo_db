@@ -1,5 +1,32 @@
 extends layout
 
 block content
-  h1= title
-  p RequestTrap
+    .instuction.jumbotron
+        h2 Requests Trap: A tool for capture and display HTTP requests.</h3>
+            p
+                | This simple tool is useful during the development of apps that
+                | integrate with external services, such as http clients, webhooks,
+                | etc. The Requests Trap app ('Req App') provides these services with
+                |    an endpoint to which they can send requests and notifications.
+            p
+                | For example, let's assume we are developing an ecommerce site named
+                | “myshop" with PayPal integration. During development, Myshop can
+                |  use Req App to see PayPal requests via a specific endpoint.
+            p
+                | If a Req App user gives this URL to the PayPal service:</p>
+
+                li
+                    | http://requests-trap.com/fireshop/aerhgewrh/serhsrt
+            p
+                | Then the user could see the IPN notifications sent by PayPal here:</p>
+
+                li
+                    | http://requests-trap.com/fireshop/requests
+            p
+                | The user can choose any url, all the requests made to that url can
+                | be viewed by anyone that knows the url, so he can use hard-to-guess
+                | urls to avoid that:
+
+                li
+                    | http://requests-trap.com/mysupersecreturlxj34/requests
+
