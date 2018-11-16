@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 
 const RequestSchema = new Schema({
   trap_id: String,
-  cookies: {},
-  headers: {},
+  cookie: Object,
+  headers: Object,
   remote_ip: String,
   request_schema: String,
   method: String,

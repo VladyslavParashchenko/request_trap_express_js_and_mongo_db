@@ -1,18 +1,18 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, 'config/.env') });
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 let indexRouter = require('./routes/index');
 let app = express();
 let io = app.io = require('socket.io')();
-const dbConfig = require('./config/config.js');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
 // Connecting to the database
-mongoose.connect(dbConfig.db_url, { useNewUrlParser: true }).then(() => {
+mongoose.connect(process.env[`DB_${process.env.NODE_ENV}`.toUpperCase()], { useNewUrlParser: true }).then(() => {
   console.log('Successfully connected to the database');
 }).catch(err => {
   console.log('Could not connect to the database. Exiting now...', err);

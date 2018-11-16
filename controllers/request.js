@@ -6,7 +6,7 @@ module.exports = {
     return Request
       .create(
         {
-          cookies: req.cookies,
+          cookie: req.cookies,
           headers: req.headers,
           request_schema: req.protocol,
           method: req.method,
