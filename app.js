@@ -12,6 +12,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // Connecting to the database
+console.log(process.env.DB_PRODUCTION);
+console.log(process.env.NODE_ENV);
 mongoose.connect(process.env[`DB_${process.env.NODE_ENV}`.toUpperCase()], { useNewUrlParser: true }).then(() => {
   console.log('Successfully connected to the database');
 }).catch(err => {
