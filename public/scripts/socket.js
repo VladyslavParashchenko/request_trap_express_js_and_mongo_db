@@ -4,7 +4,7 @@ window.onload = function () {
     let container = document.createElement('div');
     container.className = 'my-card-container';
     container.insertAdjacentHTML('beforeend', data['request']);
-    document.querySelector('.requests').appendChild(container);
+    document.querySelector('.requests').prepend(container);
   });
 };
 
