@@ -18,7 +18,8 @@ module.exports = {
         })
       .then((request) => {
         res.render('request', { title: 'Request was saved', request: serializer.serializeObject(request), path: req.path });
-        req.io.emit('newRequest', { 'request': pug.renderFile('views/request-partitial.pug', { request: serializer.serializeObject(request) }) });
+        req.io.emit('newRequest', { 'request': pug.renderFile('views/request-partitial.pug',
+          { request: serializer.serializeObject(request) }) });
       }
       )
       .catch((error) => res.status(400).send(error));

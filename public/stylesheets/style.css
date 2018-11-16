@@ -6,11 +6,13 @@ body {
 a {
   color: #00B7FF;
 }
+
 .my-card-container{
   border:2px solid rgb(145, 145, 145);
   margin-bottom: 20px;
   border-radius: 5px;
 }
+
 .capitalize-first-letter:first-letter {
   text-transform:capitalize;
 }

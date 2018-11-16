@@ -7,7 +7,4 @@ block content
   div.requests
     each request in requests
       .my-card-container
-        each val, index in request
-          h5.card-header= index
-          .card-body
-            p= JSON.stringify(val)
+        include request-partitial
